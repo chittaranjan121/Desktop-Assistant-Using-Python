@@ -14,3 +14,6 @@ pip install -r requirements.txt
 AIzaSyA1mZ_nqKNIp_3oCpckldDZaqQ0WGHqotk    -- gemini
 
 https://github.com/entbappy/MY-PERSONAL-JARVIS-SYSTEM/blob/master/jarvis.py
+ 
+
+ streamlit error
