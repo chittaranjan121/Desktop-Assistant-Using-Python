@@ -22,7 +22,7 @@ def wish_me():
     else:
         speak("Good evening  sir. How are you doing")
     
-    speak("I am JARVIS. Tell me sir how can i help you")
+    speak("I am Adish. Tell me sir how can i help you")
 
 
 def speak(text):
@@ -32,18 +32,19 @@ def speak(text):
 def takeCommand():
     r=sr.Recognizer()
     with sr.Microphone() as source:
+        query=""
         print("Listining")
         r.pause_threshold=1
         audio=r.listen(source)
 
-        try:
+    try:
             print("Recognizing User Voice")
             query=r.recognize_google(audio,language="en")
             print(f"user said is {query}\n")
-        except Exception as e:
+    except Exception as e:
             print("Please try again")
             print("None")
-        return query
+    return query
 
 def sendEmail(to,content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -102,16 +103,16 @@ if __name__== "__main__":
             elif 'time' in query:
                 speak("This is 6 o'clock sir you have been sleeping for 6 hours")
 
-             #This query for say the times
+            #This query for say the times
             elif 'time_date' in query:
                 strTime = datetime.datetime.now().strftime("%H:%M:%S")
                 speak(f"Sir the time is {strTime}")
-             #This query for open the VS code
+            #This query for open the VS code
             elif 'code' in query:
                 codePath = "C:\\Users\\ACT\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
                 speak("Sure sir . give me some while. Opening visual code studio")
                 os.startfile(codePath)
-             #This query for sent Email
+            #This query for sent Email
             
             elif 'email' in query:
                 try:
