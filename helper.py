@@ -1,31 +1,40 @@
-import os
 import speech_recognition as sr
-import wikipedia
-import pyttsx3
-import datetime
-import webbrowser
-import streamlit as st
+import google.generativeai as genai
+import os
+from gtts import gTTS
 
-engine=pyttsx3.init('sapi5')
-voices=engine.getProperty('voices')
-engine.setProperty('voice',voices[1].id)
+GOOGLE_API_KEY="AIzaSyA1mZ_nqKNIp_3oCpckldDZaqQ0WGHqotk"
+os.environ['GOOGLE_API_KEY']=GOOGLE_API_KEY
 
-def speak(text):
-    engine.say(text)
-    engine.runAndWait()
-
-def takeCommand():
+def voice_input():
     r=sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Listining")
-        r.pause_threshold=1
-        audio=r.listen(source)
 
-        try:
-            print("Recognizing User Voice")
-            query=r.recognize_google(audio,language="en")
-            print(f"user said is {query}\n")
-        except Exception as e:
-            print("Please try again")
-            print("None")
-        return query
+    with sr.Microphone() as SOURCE:
+        print("Listining")
+        audio=r.listen(SOURCE)
+    
+    try:
+        text=r.recognize_google(audio)
+        print("you said",text)
+        return text
+    except sr.UnknownValueError:
+        print("Sorry, could not understand Audio")
+    except sr.RequestError as e:
+        print("could not request result from Google speech recognozation service {0}".format(e))
+
+
+def text_to_speech(text):
+    tts=gTTS(text=text,lang='en')
+    tts.save("speech.mp3")
+
+
+def llm_model_object(user_text):
+    genai.configure(api_key=GOOGLE_API_KEY)
+    model=genai.GenerativeModel('gemini-pro')
+    response=model.generate_content(user_text)
+    result=response.text
+    return result
+
+
+
+
