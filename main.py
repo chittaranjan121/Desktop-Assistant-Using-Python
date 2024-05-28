@@ -4,6 +4,7 @@ import datetime
 import wikipedia
 import webbrowser
 import os
+import streamlit as st
 
 ##taking volume from screen
 engine=pyttsx3.init('sapi5')
@@ -38,6 +39,9 @@ def takeCommand():
     
 print("Before Welcome")
 if __name__== "__main__":
+
+    st.title("Desktop Assistant")
+    
 
     query=takeCommand().lower()
     print(query)
