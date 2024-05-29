@@ -10,7 +10,7 @@ def main():
             response=llm_model_object(text)
             text_to_speech(response)
 
-            audio_file=open("speech.mp3",encoding='utf8')
+            audio_file=open("speech.mp3",'rb')
             audio_bytes=audio_file.read()
 
             st.text_area(label="Response:",value=response,height=360)
